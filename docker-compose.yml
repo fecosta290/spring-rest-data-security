@@ -1,23 +1,30 @@
-version: '3.1'
-services:
+version: '3.8'
 
+services:
   maria-db:
     container_name: maria-db
-    image: mariadb
+    image: mariadb # Especificando versão para maior controle
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: root
-      MARIADB_DATABASE: sample
+      MARIADB_DATABASE: sample  
+      MARIADB_PASSWORD: root
       MARIADB_ROOT_HOST: '%'
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
-      -  mariadb_volume:/var/lib/mysql
+      - mariadb_volume:/var/lib/mysql
     networks:
       - api-network
+    healthcheck:  # Adicionando healthcheck para monitoramento
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mariadb_volume:
+    driver: local
 
 networks:
   api-network:

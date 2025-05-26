@@ -5,7 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "group")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

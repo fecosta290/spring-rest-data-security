@@ -2,14 +2,12 @@ package br.edu.fatecsjc.lgnspringapi.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "members")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -21,6 +19,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupsidgen")
     private Long id;
     private String name;
-    @OneToMany(mappedBy="group", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Member> members;
+    
 }
