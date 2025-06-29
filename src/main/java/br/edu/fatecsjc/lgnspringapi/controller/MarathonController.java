@@ -1,7 +1,7 @@
 package br.edu.fatecsjc.lgnspringapi.controller;
 
 import br.edu.fatecsjc.lgnspringapi.dto.MarathonDTO;
-import br.edu.fatecsjc.lgnspringapi.dto.MarathonRequestDTO;
+import br.edu.fatecsjc.lgnspringapi.dto.MarathonRequest;
 import br.edu.fatecsjc.lgnspringapi.entity.Marathon;
 import br.edu.fatecsjc.lgnspringapi.entity.Organization;
 import br.edu.fatecsjc.lgnspringapi.service.MarathonService;
@@ -9,7 +9,6 @@ import br.edu.fatecsjc.lgnspringapi.service.OrganizationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/marathons")
@@ -38,7 +37,7 @@ public class MarathonController {
   }
 
   @PostMapping
-  public MarathonDTO create(@RequestBody MarathonRequestDTO request) {
+  public MarathonDTO create(@RequestBody MarathonRequest request) {
     Organization organization = organizationService.findById(request.getOrganizationId())
         .orElseThrow(() -> new RuntimeException("Organization not found"));
 
@@ -51,14 +50,13 @@ public class MarathonController {
   }
 
   @PutMapping("/{id}")
-  public MarathonDTO update(@PathVariable Long id, @RequestBody MarathonRequestDTO request) {
+  public MarathonDTO update(@PathVariable Long id, @RequestBody MarathonRequest request) {
     Marathon existing = service.findById(id) != null
         ? service.findAll().stream().filter(m -> m.getId().equals(id)).findFirst().map(dto -> {
           Marathon m = new Marathon();
           m.setId(dto.getId());
           m.setName(dto.getName());
           m.setDate(dto.getDate());
-          // você pode querer carregar a entidade organizacao para setar aqui
           return m;
         }).orElse(null)
         : null;

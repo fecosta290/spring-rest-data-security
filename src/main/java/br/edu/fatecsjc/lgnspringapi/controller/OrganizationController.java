@@ -1,7 +1,9 @@
 package br.edu.fatecsjc.lgnspringapi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.edu.fatecsjc.lgnspringapi.dto.OrganizationDTO;
@@ -25,12 +27,14 @@ public class OrganizationController {
   }
 
   @GetMapping("/{id}")
-  public OrganizationDTO getById(@PathVariable Long id) {
-    Organization organization = service.findById(id)
-        .orElseThrow(() -> new RuntimeException("Organization not found"));
-    return OrganizationMapper.toDTO(organization);
+  public ResponseEntity<OrganizationDTO> getById(@PathVariable Long id) {
+    Optional<Organization> organizationOpt = service.findById(id);
+    if (organizationOpt.isPresent()) {
+      return ResponseEntity.ok(OrganizationMapper.toDTO(organizationOpt.get()));
+    } else {
+      return ResponseEntity.notFound().build();
+    }
   }
-
 
   @PostMapping
   public OrganizationDTO create(@RequestBody Organization organization) {

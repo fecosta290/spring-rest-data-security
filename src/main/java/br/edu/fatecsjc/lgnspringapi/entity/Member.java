@@ -1,8 +1,12 @@
+
 package br.edu.fatecsjc.lgnspringapi.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+@Data
 @Getter
 @Setter
 @ToString(exclude = "group")
@@ -20,5 +24,6 @@ public class Member {
     private Integer age;
     @ManyToOne
     @JoinColumn(name="group_id", nullable=false)
+    @JsonBackReference
     private Group group;
 }

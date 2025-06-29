@@ -32,7 +32,9 @@ public class GroupConverter implements Converter<Group, GroupDTO> {
         Provider<Group> groupProvider = p -> new Group();
         propertyMapperDto.setProvider(groupProvider);
 
-        entity.getMembers().forEach(m -> m.setGroup(entity));
+        if (entity.getMembers() != null) {
+            entity.getMembers().forEach(m -> m.setGroup(entity));
+        }
         return entity;
     }
 

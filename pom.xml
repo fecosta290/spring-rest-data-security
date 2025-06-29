@@ -17,8 +17,8 @@
 		<java.version>17</java.version>
 
 		<!-- login sonar -->
-		<sonar.projectKey>fecosta290_spring-rest-data-security</sonar.projectKey>
-		<sonar.organization>fecosta290</sonar.organization>
+		<sonar.projectKey>Fe-Costa_lgn-spring-api</sonar.projectKey>
+		<sonar.organization>AZbJZ3j6yXEEo_SOGdcu</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		
 		<jjwt.version>0.11.5</jjwt.version>

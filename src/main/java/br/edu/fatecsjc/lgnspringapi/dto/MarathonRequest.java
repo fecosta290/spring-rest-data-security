@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MarathonDTO {
-  private Long id;
+public class MarathonRequest {
   private String name;
   private String date;
   private Long organizationId;
-  private String organizationName;
 }
